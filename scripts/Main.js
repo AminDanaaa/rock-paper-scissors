@@ -7,54 +7,63 @@ function getHumanChoice() {
     return prompt("(rock, paper, scissors) Enter your choice:");
 }
 
-let computerScore = 0;
-let humanScore = 0;
-
-let humanSelection = getHumanChoice()?.toLowerCase();
-let computerSelection = getComputerChoice();
+function declareWinner(finalScore) {
+    if (finalScore > 0) {
+        console.log("Result: Player Won the Game!");
+    } else {
+        console.log("Result: Computer Won the Game!");
+    }
+}
 
 function playRound(humanChoice, computerChoice) {
     if (humanChoice === computerChoice) {
         console.log("Tie!");
-        return true;
+        return 0;
     }
-    
+
     switch(humanChoice) {
         case "rock":
             switch(computerChoice) {
                 case "paper":
                     console.log("You Lose!");
-                    computerScore++;
-                    break;
+                    return -1;
                 case "scissors":
                     console.log("You Win!");
-                    humanScore++;
-                    break;
+                    return 1;
             }
-            break;
         case "paper":
             switch(computerChoice) {
                 case "rock":
                     console.log("You Win!");
-                    humanScore++;
-                    break;
+                    return 1;
                 case "scissors":
                     console.log("You Lose!");
-                    computerScore++;
-                    break;
+                    return -1;
             }
-            break;
         case "scissors":
             switch(computerChoice) {
                 case "rock":
                     console.log("You Lose!");
                     computerScore++;
-                    break;
+                    return -1;
                 case "paper":
                     console.log("You Win!");
-                    humanScore++;
-                    break;
+                    return 1;
             }
-            break;
     }
 }
+
+function playGame() {
+    let score = 0;
+
+    for (let i = 0; i < 5; i++) {
+        let humanSelection = getHumanChoice()?.toLowerCase();
+        let computerSelection = getComputerChoice();
+        
+        score += playRound(humanSelection, computerSelection);
+    }
+
+    declareWinner(score);
+}
+
+playGame();
