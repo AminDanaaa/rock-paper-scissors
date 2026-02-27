@@ -9,3 +9,52 @@ function getHumanChoice() {
 
 let computerScore = 0;
 let humanScore = 0;
+
+let humanSelection = getHumanChoice()?.toLowerCase();
+let computerSelection = getComputerChoice();
+
+function playRound(humanChoice, computerChoice) {
+    if (humanChoice === computerChoice) {
+        console.log("Tie!");
+        return true;
+    }
+    
+    switch(humanChoice) {
+        case "rock":
+            switch(computerChoice) {
+                case "paper":
+                    console.log("You Lose!");
+                    computerScore++;
+                    break;
+                case "scissors":
+                    console.log("You Win!");
+                    humanScore++;
+                    break;
+            }
+            break;
+        case "paper":
+            switch(computerChoice) {
+                case "rock":
+                    console.log("You Win!");
+                    humanScore++;
+                    break;
+                case "scissors":
+                    console.log("You Lose!");
+                    computerScore++;
+                    break;
+            }
+            break;
+        case "scissors":
+            switch(computerChoice) {
+                case "rock":
+                    console.log("You Lose!");
+                    computerScore++;
+                    break;
+                case "paper":
+                    console.log("You Win!");
+                    humanScore++;
+                    break;
+            }
+            break;
+    }
+}
