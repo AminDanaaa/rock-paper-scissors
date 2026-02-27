@@ -10,8 +10,10 @@ function getHumanChoice() {
 function declareWinner(finalScore) {
     if (finalScore > 0) {
         console.log("Result: Player Won the Game!");
-    } else {
+    } else if (finalScore < 0) {
         console.log("Result: Computer Won the Game!");
+    } else {
+        console.log("Result: Tie!");
     }
 }
 
