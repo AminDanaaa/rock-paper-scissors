@@ -1,3 +1,7 @@
+const resultText = document.querySelector("#result");
+const scoreText = document.querySelector("#score");
+const container = document.querySelector("#container");
+
 function getComputerChoice() {
     const choices = ["rock", "paper", "scissors"];
     return choices[Math.floor(Math.random() * 3)];
@@ -7,19 +11,9 @@ function getHumanChoice() {
     return prompt("(rock, paper, scissors) Enter your choice:");
 }
 
-function declareWinner(finalScore) {
-    if (finalScore > 0) {
-        console.log("Result: Player Won the Game!");
-    } else if (finalScore < 0) {
-        console.log("Result: Computer Won the Game!");
-    } else {
-        console.log("Result: Tie!");
-    }
-}
-
 function playRound(humanChoice, computerChoice) {
     if (humanChoice === computerChoice) {
-        console.log("Tie!");
+        resultText.textContent = "Tie!";
         return 0;
     }
 
@@ -27,29 +21,29 @@ function playRound(humanChoice, computerChoice) {
         case "rock":
             switch(computerChoice) {
                 case "paper":
-                    console.log("You Lose!");
+                    resultText.textContent = "You Lose the round!";
                     return -1;
                 case "scissors":
-                    console.log("You Win!");
+                    resultText.textContent = "You Win the round!";
                     return 1;
             }
         case "paper":
             switch(computerChoice) {
                 case "rock":
-                    console.log("You Win!");
+                    resultText.textContent = "You Win the round!";
                     return 1;
                 case "scissors":
-                    console.log("You Lose!");
+                    resultText.textContent = "You Lose the round!";
                     return -1;
             }
         case "scissors":
             switch(computerChoice) {
                 case "rock":
-                    console.log("You Lose!");
+                    resultText.textContent = "You Lose the round!";
                     computerScore++;
                     return -1;
                 case "paper":
-                    console.log("You Win!");
+                    resultText.textContent = "You Win the round!";
                     return 1;
             }
     }
@@ -68,4 +62,42 @@ function playGame() {
     declareWinner(score);
 }
 
-playGame();
+// playGame();
+
+let score = 0;
+const btnRock = document.querySelector("#rock")
+const btnPaper = document.querySelector("#paper");
+const btnScissors = document.querySelector("#scissors");
+
+btnRock.addEventListener("click", () => {
+    score += playRound("rock", getComputerChoice());
+    updateScore();
+})
+
+btnPaper.addEventListener("click", () => {
+    score += playRound("rock", getComputerChoice());
+    updateScore();
+})
+
+btnScissors.addEventListener("click", () => {
+    score += playRound("rock", getComputerChoice());
+    updateScore();
+})
+
+function updateScore() {
+    scoreText.textContent = score;
+
+    if (score >= 5 || score <= -5) {
+        const newResult = document.createElement("p");
+
+        if (score >= 5) {
+            newResult.textContent = "Congratulations! You Won the Game!";
+        }
+    
+        if (score <= -5) {
+            newResult.textContent = "Oh Sorry, You Lost the Game!";
+        }
+
+        container.replaceChildren(newResult);
+    }
+}
